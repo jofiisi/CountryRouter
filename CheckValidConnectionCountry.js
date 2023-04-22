@@ -11,27 +11,45 @@ async function getCsvFile() {
 
 var inputCountries = [["Austria"]["Belgium"]];
 
-getCsvFile().then(function(data){ 
-  csvData = data;
-  //Convert to 2d array with only name & border name 
-  var csvData = data.split('\n');
-  var countryCountryNeigbor = [];
-  for (var i = 1; i < csvData.length; i++)
-  {
-    csvData[i] = csvData[i].replace(/"/g, '');
-    var parts = csvData[i].split(',');
-    countryCountryNeigbor.push([parts[1], parts[3]]);
-  }
-  console.table(countryCountryNeigbor);
-  csvData = undefined;
-  inputCountries.sort();
-})
+function getCountryCountryNeighbor() {
+  return new Promise(function (resolve, reject) {
 
-function getNeigbors(inputCountry,countryCountryNeigbor)
-{
-  var i = 0;
-  while(countryCountryNeigbor[i][0] != "")
-  {
-
-  }
+    getCsvFile().then(function (data) {
+      csvData = data;
+      //Convert to 2d array with only name & border name 
+      var csvData = data.split('\n');
+      var countryCountryNeighbor = [];
+      for (var i = 1; i < csvData.length; i++) {
+        csvData[i] = csvData[i].replace(/"/g, '');
+        var parts = csvData[i].split(',');
+        countryCountryNeighbor.push([parts[1], parts[3]]);
+      }
+      csvData = undefined;
+      resolve(countryCountryNeighbor);
+    }).catch(function (error) {
+      reject(error);
+    });
+  });
 }
+
+function getNeighbors(inputCountry, countryCountryNeighbor, outputCountries) {
+  var i = 0;
+  while (countryCountryNeighbor[i][0] != inputCountry) {
+    i++;
+  }
+  while(countryCountryNeighbor[i][0] == inputCountry)
+  {
+    outputCountries.push(countryCountryNeighbor[i][1]);
+    i++;
+  } 
+}
+
+
+getCountryCountryNeighbor().then(function(countryCountryNeighbor) {
+  var Neighbors = [];
+  getNeighbors("Austria", countryCountryNeighbor, Neighbors);
+  console.table(Neighbors);
+}).catch(function(error) {
+  console.error(error);
+});
+
