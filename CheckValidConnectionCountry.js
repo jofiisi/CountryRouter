@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    computeShortestRoute(["Austria","Israel"], countryCountryNeighbor)
+    computeShortestRoute(["Germany", "South Africa"], countryCountryNeighbor)
   }
 
   main();
@@ -84,14 +84,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
 function computeShortestRoute(inputCountries, countryCountryNeighbor) //I dont think its possible to easily compute all of them, so its just gonna be one shortest round not all possibilities, may suck heavily : )
 {
-  inputCountries.sort();
-  let maxIterations = 6;
+  let maxIterations = 20;
   var solution = [];
   let neighbors = [];
   let currentCountry;
   let treeIndex = 0; // This is total bullshit
   let treeDepth = 0;
   let availableCountries = [];
+  let visitedCountries = [];
   while(treeDepth < maxIterations)
   {
     if(treeDepth == 0)
@@ -120,15 +120,20 @@ function computeShortestRoute(inputCountries, countryCountryNeighbor) //I dont t
       let offsetArray = 0;
       for(let i = 0; i < availableCountries[treeDepth-1].length; i++)
       {
+
         currentCountry = availableCountries[treeDepth-1][i].split('/');
-        availableCountries[treeDepth] = getNeighbors(currentCountry[0], countryCountryNeighbor, neighbors);
-        // mark the branch in order to trace back the solution
-        let initalLength = availableCountries[treeDepth].length - offsetArray;
-        for(let x = 0; x < initalLength; x++)
+        if(!(visitedCountries.includes(currentCountry[0])))
         {
-          availableCountries[treeDepth][x + offsetArray] = availableCountries[treeDepth][x + offsetArray] + "/" + currentCountry;
-        }
-        offsetArray = offsetArray + initalLength; 
+          visitedCountries.push(currentCountry[0]);
+          availableCountries[treeDepth] = getNeighbors(currentCountry[0], countryCountryNeighbor, neighbors);
+          // mark the branch in order to trace back the solution
+          let initalLength = availableCountries[treeDepth].length - offsetArray;
+          for(let x = 0; x < initalLength; x++)
+          {
+            availableCountries[treeDepth][x + offsetArray] = availableCountries[treeDepth][x + offsetArray] + "/" + currentCountry;
+          }
+          offsetArray = offsetArray + initalLength; 
+      }
       }
     }
     treeIndex = availableCountries[treeDepth].length -1;
@@ -138,10 +143,11 @@ function computeShortestRoute(inputCountries, countryCountryNeighbor) //I dont t
       checkSolution = checkSolution[0]
       if(checkSolution == inputCountries[1])
       {
+        console.table(availableCountries)
         console.log("succes");
         solution.push(availableCountries[treeDepth][treeIndex]);
         console.table(solution);
-        console.table(availableCountries)
+
 
 
         return 0;
