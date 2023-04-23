@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    computeShortestRoute(["Italy","Poland"], countryCountryNeighbor)
+    computeShortestRoute(["Austria","Israel"], countryCountryNeighbor)
   }
 
   main();
@@ -85,7 +85,7 @@ document.addEventListener("DOMContentLoaded", function () {
 function computeShortestRoute(inputCountries, countryCountryNeighbor) //I dont think its possible to easily compute all of them, so its just gonna be one shortest round not all possibilities, may suck heavily : )
 {
   inputCountries.sort();
-  let maxIterations = 8;
+  let maxIterations = 6;
   var solution = [];
   let neighbors = [];
   let currentCountry;
@@ -117,20 +117,33 @@ function computeShortestRoute(inputCountries, countryCountryNeighbor) //I dont t
       availableCountries[treeDepth] = neighbors;
     }else{
       availableCountries[treeDepth] = [];
+      let offsetArray = 0;
       for(let i = 0; i < availableCountries[treeDepth-1].length; i++)
       {
-        currentCountry = availableCountries[treeDepth-1][i];
-        availableCountries[treeDepth] = getNeighbors(currentCountry, countryCountryNeighbor, neighbors);
+        currentCountry = availableCountries[treeDepth-1][i].split('/');
+        availableCountries[treeDepth] = getNeighbors(currentCountry[0], countryCountryNeighbor, neighbors);
+        // mark the branch in order to trace back the solution
+        let initalLength = availableCountries[treeDepth].length - offsetArray;
+        for(let x = 0; x < initalLength; x++)
+        {
+          availableCountries[treeDepth][x + offsetArray] = availableCountries[treeDepth][x + offsetArray] + "/" + currentCountry;
+        }
+        offsetArray = offsetArray + initalLength; 
       }
     }
     treeIndex = availableCountries[treeDepth].length -1;
     while(treeIndex)
     {
-      if(availableCountries[treeDepth][treeIndex] == inputCountries[1])
+      let checkSolution = availableCountries[treeDepth][treeIndex].split('/');
+      checkSolution = checkSolution[0]
+      if(checkSolution == inputCountries[1])
       {
         console.log("succes");
         solution.push(availableCountries[treeDepth][treeIndex]);
         console.table(solution);
+        console.table(availableCountries)
+
+
         return 0;
       }
       treeIndex--;
