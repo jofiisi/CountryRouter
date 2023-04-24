@@ -42,7 +42,7 @@ function getNeighbors(inputCountry, countryCountryNeighbor, outputCountries) {
   while (countryCountryNeighbor[i][0] == inputCountry) {
     outputCountries.push(countryCountryNeighbor[i][1]);
     i++;
-  }
+  } // Is broken if there is no stop at the end of the csv file or it wont get out of the while loop
   return outputCountries;
 }
 
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    computeShortestRoute(["Germany", "South Africa"], countryCountryNeighbor)
+    computeShortestRoute(["Denmark", "South Africa"], countryCountryNeighbor)
   }
 
   main();
