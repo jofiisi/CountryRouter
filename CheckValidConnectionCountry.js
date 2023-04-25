@@ -146,7 +146,12 @@ function computeShortestRoute(inputCountries, countryCountryNeighbor) //I dont t
     }
     treeIndex = availableCountries[treeDepth].length - 1;
     while (treeIndex) {
-      let checkSolution = availableCountries[treeDepth][treeIndex].split('/');
+      let checkSolution;
+      try {
+        checkSolution = availableCountries[treeDepth][treeIndex].split('/');
+      } catch (error) {
+        return "No possible way/Not a valid country";
+      }
       checkSolution = checkSolution[0]
       if (checkSolution == inputCountries[1]) {
         solution.push(availableCountries[treeDepth][treeIndex]);
