@@ -56,18 +56,6 @@ document.addEventListener("DOMContentLoaded", function () {
     var outputCountries = [];
     countryCountryNeighbor = await getCountryCountryNeighbor();
 
-    submitButton.addEventListener("click", function (evnet) {
-      let inputCountries = [];
-      let output;
-      inputCountries[0] = document.getElementById("startCountry").value;
-      inputCountries[1] = document.getElementById("stopCountry").value;
-      inputCountries.sort();
-      output = computeShortestRoute(inputCountries, countryCountryNeighbor);
-      console.table(inputCountries);
-      console.log(output);
-      document.getElementById("solution").innerHTML = output;
-    })
-
     inputCountry.addEventListener("keydown", function (event) {
       if (event.key === 'Enter') {
         outputCountries = [];
@@ -90,9 +78,23 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   }
-
   main();
 });
+
+async function solveRoute()
+{
+  let inputCountries = [];
+  let output;
+  let countryCountryNeighbor;
+  inputCountries[0] = document.getElementById("startCountry").value;
+  inputCountries[1] = document.getElementById("stopCountry").value;
+  inputCountries.sort();
+  countryCountryNeighbor = await getCountryCountryNeighbor();
+  output = computeShortestRoute(inputCountries, countryCountryNeighbor);
+  console.table(inputCountries);
+  console.log(output);
+  document.getElementById("solution").innerHTML = output;
+}
 
 function computeShortestRoute(inputCountries, countryCountryNeighbor) //I dont think its possible to easily compute all of them, so its just gonna be one shortest round not all possibilities, may suck heavily : )
 {
