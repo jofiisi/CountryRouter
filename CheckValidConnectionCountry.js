@@ -51,10 +51,23 @@ document.addEventListener("DOMContentLoaded", function () {
   async function main() {
     let countryCountryNeighbor;
     const inputCountry = document.getElementById("inputCountry");
+    const submitButton = document.getElementById("submit");
     const outputList = document.getElementById("outputList");
     var outputCountries = [];
     countryCountryNeighbor = await getCountryCountryNeighbor();
-    
+
+    submitButton.addEventListener("click", function (evnet) {
+      let inputCountries = [];
+      let output;
+      inputCountries[0] = document.getElementById("startCountry").value;
+      inputCountries[1] = document.getElementById("stopCountry").value;
+      inputCountries.sort();
+      output = computeShortestRoute(inputCountries, countryCountryNeighbor);
+      console.table(inputCountries);
+      console.log(output);
+      document.getElementById("solution").innerHTML = output;
+    })
+
     inputCountry.addEventListener("keydown", function (event) {
       if (event.key === 'Enter') {
         outputCountries = [];
@@ -75,12 +88,11 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    computeShortestRoute(["Denmark", "South Africa"], countryCountryNeighbor)
+
   }
 
   main();
 });
-
 
 function computeShortestRoute(inputCountries, countryCountryNeighbor) //I dont think its possible to easily compute all of them, so its just gonna be one shortest round not all possibilities, may suck heavily : )
 {
@@ -92,10 +104,8 @@ function computeShortestRoute(inputCountries, countryCountryNeighbor) //I dont t
   let treeDepth = 0;
   let availableCountries = [];
   let visitedCountries = [];
-  while(treeDepth < maxIterations)
-  {
-    if(treeDepth == 0)
-    {
+  while (treeDepth < maxIterations) {
+    if (treeDepth == 0) {
       currentCountry = inputCountries[0];
     }/*
     neighbors = getNeighbors(currentCountry, countryCountryNeighbor, neighbors);
@@ -111,52 +121,42 @@ function computeShortestRoute(inputCountries, countryCountryNeighbor) //I dont t
     }
     */
     neighbors = [];
-    if(treeDepth == 0)
-    {
+    if (treeDepth == 0) {
       neighbors = getNeighbors(currentCountry, countryCountryNeighbor, neighbors);
       availableCountries[treeDepth] = neighbors;
-    }else{
+    } else {
       availableCountries[treeDepth] = [];
       let offsetArray = 0;
-      for(let i = 0; i < availableCountries[treeDepth-1].length; i++)
-      {
+      for (let i = 0; i < availableCountries[treeDepth - 1].length; i++) {
 
-        currentCountry = availableCountries[treeDepth-1][i].split('/');
-        if(!(visitedCountries.includes(currentCountry[0])))
-        {
+        currentCountry = availableCountries[treeDepth - 1][i].split('/');
+        if (!(visitedCountries.includes(currentCountry[0]))) {
           visitedCountries.push(currentCountry[0]);
           availableCountries[treeDepth] = getNeighbors(currentCountry[0], countryCountryNeighbor, neighbors);
           // mark the branch in order to trace back the solution
           let initalLength = availableCountries[treeDepth].length - offsetArray;
-          for(let x = 0; x < initalLength; x++)
-          {
+          for (let x = 0; x < initalLength; x++) {
             availableCountries[treeDepth][x + offsetArray] = availableCountries[treeDepth][x + offsetArray] + "/" + currentCountry;
           }
-          offsetArray = offsetArray + initalLength; 
-      }
+          offsetArray = offsetArray + initalLength;
+        }
       }
     }
-    treeIndex = availableCountries[treeDepth].length -1;
-    while(treeIndex)
-    {
+    treeIndex = availableCountries[treeDepth].length - 1;
+    while (treeIndex) {
       let checkSolution = availableCountries[treeDepth][treeIndex].split('/');
       checkSolution = checkSolution[0]
-      if(checkSolution == inputCountries[1])
-      {
-        console.table(availableCountries)
-        console.log("succes");
+      if (checkSolution == inputCountries[1]) {
         solution.push(availableCountries[treeDepth][treeIndex]);
-        console.table(solution);
-
-
-
-        return 0;
+        return solution;
       }
       treeIndex--;
     }
     treeDepth++;
   }
 }
+
+
 
 
 

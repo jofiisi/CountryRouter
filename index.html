@@ -8,6 +8,7 @@
     <title>Document</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="./CheckValidConnectionCountry.js"></script>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
@@ -17,6 +18,15 @@
     </div>
     <div id="wrongInput"></div>
     <ul id=outputList></ul>
+    <div id="computeRoute">
+        <div>Compute Shortest Route</div>
+        <div>
+            <input type="text" id="startCountry">
+            <input type="text" id="stopCountry">
+        </div>
+        <input type="submit" id="submit">
+        <div id="solution"></div>
+    </div>
 </body>
 
 </html>

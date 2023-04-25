@@ -1,0 +1,13 @@
+#startCountry, #stopCountry{
+    display: block;
+    text-align: center;
+    margin: 20px;
+}
+
+#computeRoute{
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    flex-direction: column;
+    align-items: center;
+}
