@@ -1,6 +1,8 @@
 html, body{
     height: 100vh;
     margin: 0;
+    font-family:'Courier New', Courier, monospace;
+    background-color: #aaaaaa;
 }
 
 body{
@@ -9,8 +11,16 @@ body{
     justify-content: space-between;
 }
 
+
 input{
     display: block;
+    text-align: center;
+    font-family: inherit;
+    background-color: #bbbbbb;
+}
+
+li{
+    list-style: none;
 }
 
 #source{
@@ -28,9 +38,29 @@ input{
     margin-top: 10px;
 }
 
+#inputCountry{
+    margin: auto;
+}
+
+#wrongInput{
+    margin-top: 10px;
+}
+
+#outputList{
+    padding: 0;
+}
+
 #computeRoute{
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 100px;
+}
+
+.confirmCalc{
+    margin: 10px;
+    font-family: inherit;
+    border: none;
+    color: #aaaaaa;
+    background-color: black;
 }
