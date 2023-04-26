@@ -65,7 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
           while (outputList.firstChild) {
             outputList.removeChild(outputList.firstChild);
           }
-          for (let i = 0; i < outputCountries.length; i++) {
+          for (let i = 0; i < outputCountries.length; i++) 
+          {
             let liElement = document.createElement('li');
             liElement.innerHTML = outputCountries[i];
             outputList.appendChild(liElement);
@@ -109,19 +110,7 @@ function computeShortestRoute(inputCountries, countryCountryNeighbor) //I dont t
   while (treeDepth < maxIterations) {
     if (treeDepth == 0) {
       currentCountry = inputCountries[0];
-    }/*
-    neighbors = getNeighbors(currentCountry, countryCountryNeighbor, neighbors);
-    
-    for(let x = 0; x < neighbors.length; x++)
-    {
-      if(neighbors[x] == inputCountries[1])
-      {
-        solution.push(neighbors[x])
-        console.table(solution);
-        return solution;
-      }
     }
-    */
     neighbors = [];
     if (treeDepth == 0) {
       neighbors = getNeighbors(currentCountry, countryCountryNeighbor, neighbors);
@@ -162,17 +151,3 @@ function computeShortestRoute(inputCountries, countryCountryNeighbor) //I dont t
     treeDepth++;
   }
 }
-
-
-
-
-
-
-/* NAJA alt & irrelevant
-getCountryCountryNeighbor().then(function(countryCountryNeighbor) {
-  var Neighbors = [];
-  getNeighbors("Austria", countryCountryNeighbor, Neighbors);
-  console.table(Neighbors);
-}).catch(function(error) {
-  console.error(error);
-});*/

@@ -12,20 +12,28 @@
 </head>
 
 <body>
-    This site or product includes Country Borders data available from https://www.geodatasource.com.
-    <div>
-        <input type="text" id="inputCountry">
-    </div>
-    <div id="wrongInput"></div>
-    <ul id=outputList></ul>
-    <div id="computeRoute">
-        <div>Compute Shortest Route</div>
-        <div>
-            <input type="text" id="startCountry">
-            <input type="text" id="stopCountry">
+    <div id="inputs">
+        <div id="checkNeighbors">
+            List Neighbors of:
+            <input type="text" id="inputCountry">
+            <div id="wrongInput"></div>
+            <ul id=outputList></ul>
         </div>
-        <input type="submit" onclick="solveRoute()">
-        <div id="solution"></div>
+
+        <div id="computeRoute">
+            <div>Compute Shortest Route</div>
+            <div>
+                <input type="text" id="startCountry">
+                <input type="text" id="stopCountry">
+                
+            </div>
+            <input type="submit" onclick="solveRoute()">
+            <div id="solution"></div>
+        </div>
+    </div>
+    <div id="source">
+        This site or product includes Country Borders data available from https://www.geodatasource.com
+        <br> Jonas Fischer
     </div>
 </body>
 
