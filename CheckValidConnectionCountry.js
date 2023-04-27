@@ -71,8 +71,11 @@ document.addEventListener("DOMContentLoaded", function () {
             liElement.innerHTML = outputCountries[i];
             outputList.appendChild(liElement);
           }
-        } else {
+        }else {
           document.getElementById("wrongInput").innerHTML = "Please Enter a valid Country";
+          while (outputList.firstChild) {
+            outputList.removeChild(outputList.firstChild);
+          }
         }
       }
     });
