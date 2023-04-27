@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     inputCountry.addEventListener("keydown", function (event) {
       if (event.key === 'Enter') {
+        event.preventDefault();
         outputCountries = [];
         outputCountries = getNeighbors(inputCountry.value, countryCountryNeighbor, outputCountries);
         if (outputCountries != 1) {
