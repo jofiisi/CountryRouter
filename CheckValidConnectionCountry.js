@@ -79,9 +79,6 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    inputCountry.addEventListener("keyup", function (event) {
-      document.getElementById("solution").innerHTML=event.key;
-    });
 
   }
   main();
