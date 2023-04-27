@@ -55,8 +55,8 @@ document.addEventListener("DOMContentLoaded", function () {
     var outputCountries = [];
     countryCountryNeighbor = await getCountryCountryNeighbor();
 
-    inputCountry.addEventListener("keydown", function (event) {
-      if (event.key === 'Enter') {
+    inputCountry.addEventListener("input", function (event) {
+      if ((event.key === 'Enter') (event.inputType === "insertLineBreak" || event.inputType === "insertText")) {
         outputCountries = [];
         outputCountries = getNeighbors(inputCountry.value, countryCountryNeighbor, outputCountries);
         if (outputCountries != 1) {
@@ -79,7 +79,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
     inputCountry.addEventListener("keyup", function (event) {
-      if ((event.key === "Enter") || (event.key === 'Done') || (event.key === 'Return')) {
+      if ((event.key === "Enter")) {
         outputCountries = [];
         outputCountries = getNeighbors(inputCountry.value, countryCountryNeighbor, outputCountries);
         if (outputCountries != 1) {
