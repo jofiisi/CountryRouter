@@ -51,13 +51,12 @@ document.addEventListener("DOMContentLoaded", function () {
   async function main() {
     let countryCountryNeighbor;
     const inputCountry = document.getElementById("inputCountry");
-    const submitButton = document.getElementById("submit");
     const outputList = document.getElementById("outputList");
     var outputCountries = [];
     countryCountryNeighbor = await getCountryCountryNeighbor();
 
     inputCountry.addEventListener("keydown", function (event) {
-      if ((event.key === 'Enter') || (event.key === 'Done') || (event.key === 'Return')) {
+      if (event.key === 'Enter') {
         outputCountries = [];
         outputCountries = getNeighbors(inputCountry.value, countryCountryNeighbor, outputCountries);
         if (outputCountries != 1) {
@@ -65,13 +64,12 @@ document.addEventListener("DOMContentLoaded", function () {
           while (outputList.firstChild) {
             outputList.removeChild(outputList.firstChild);
           }
-          for (let i = 0; i < outputCountries.length; i++) 
-          {
+          for (let i = 0; i < outputCountries.length; i++) {
             let liElement = document.createElement('li');
             liElement.innerHTML = outputCountries[i];
             outputList.appendChild(liElement);
           }
-        }else {
+        } else {
           document.getElementById("wrongInput").innerHTML = "Please Enter a valid Country";
           while (outputList.firstChild) {
             outputList.removeChild(outputList.firstChild);
@@ -80,13 +78,34 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
+    inputCountry.addEventListener("keyup", function (event) {
+      if ((event.key === "Enter") || (event.key === 'Done') || (event.key === 'Return')) {
+        outputCountries = [];
+        outputCountries = getNeighbors(inputCountry.value, countryCountryNeighbor, outputCountries);
+        if (outputCountries != 1) {
+          document.getElementById("wrongInput").innerHTML = "";
+          while (outputList.firstChild) {
+            outputList.removeChild(outputList.firstChild);
+          }
+          for (let i = 0; i < outputCountries.length; i++) {
+            let liElement = document.createElement('li');
+            liElement.innerHTML = outputCountries[i];
+            outputList.appendChild(liElement);
+          }
+        } else {
+          document.getElementById("wrongInput").innerHTML = "Please Enter a valid Country";
+          while (outputList.firstChild) {
+            outputList.removeChild(outputList.firstChild);
+          }
+        }
+      }
+    });
 
   }
   main();
 });
 
-async function solveRoute()
-{
+async function solveRoute() {
   let inputCountries = [];
   let output;
   let countryCountryNeighbor;
