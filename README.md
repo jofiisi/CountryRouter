@@ -4,4 +4,5 @@ So basically a list of neighbors is being read and sear in a kinda tree like str
 
 Try it here:
 https://jofiisi.github.io/CountryRouter/
+
 (Mobile doesn't really work, cant get a enter equivalent)
